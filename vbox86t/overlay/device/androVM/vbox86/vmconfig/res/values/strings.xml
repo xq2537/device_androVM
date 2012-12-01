@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="list_resolutions">
+	<item>640x480-16</item>
+	<item>800x600-16</item>
+	<item>1024x600-16</item>
+	<item>1024x768-16</item>
+	<item>1280x800-16</item>
+	<item>1366x768-16</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,10 @@
+#
+# system.prop for generic sdk
+#
+
+rild.libpath=/system/lib/libreference-ril.so
+rild.libargs=-d /dev/ttyS0
+dalvik.vm.heapsize=256m
+persist.service.adb.enable=1
+ro.secure=0
+ro.opengles.version=131072

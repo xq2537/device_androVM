@@ -1,0 +1,13 @@
+NOTICE about v86d Android port
+
+The v86d Android port contains two parts.
+
+* uvesafb::v86d project http://dev.gentoo.org/~spock/projects/uvesafb/
+  Original repository git://repo.or.cz/v86d.git
+
+  I've stripped unused files in the port.
+
+* lrmi of libx86 project http://www.codon.org.uk/~mjg59/libx86/
+
+-- 
+ Chih-Wei Huang
