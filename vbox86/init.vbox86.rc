@@ -1,0 +1,52 @@
+on-early-init
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    symlink /mnt/sdcard /sdcard
+
+on post-fs-data
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+on boot
+    setprop ARGH ARGH
+    setprop ro.radio.use-ppp no
+#    setprop ro.build.product generic
+#    setprop ro.product.device generic
+
+# enable Google-specific location features,
+# like NetworkLocationProvider and LocationCollector
+    setprop ro.com.google.locationfeatures 1
+
+# For the emulator, which bypasses Setup Wizard, you can specify
+# account info for the device via these two properties.  Google
+# Login Service will insert these accounts into the database when
+# it is created (ie, after a data wipe).
+#
+#   setprop ro.config.hosted_account username@hosteddomain.org:password
+#   setprop ro.config.google_account username@gmail.com:password
+#
+# You MUST have a Google account on the device, and you MAY
+# additionally have a hosted account.  No other configuration is
+# supported, and arbitrary breakage may result if you specify
+# something else.
+
+service dhcpcd_eth1 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_eth1 /system/bin/dhcpcd -n
+    disabled
+    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant -ieth1 -Dwired -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    class main
+    socket wpa_eth1 dgram 660 wifi wifi
+    disabled
+    oneshot

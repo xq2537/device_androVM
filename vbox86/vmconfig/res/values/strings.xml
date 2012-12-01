@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, androVMConfig!</string>
+    <string name="app_name">androVM Configuration</string>
+    <string name="prompt_keyboard">Keyboard type</string>
+    <string name="prompt_res">Resolution</string>
+    <string name="prompt_dpi">DPI</string>
+    <string name="opengl">Hardware OpenGL </string>
+    <string name="resolution">Resolution </string>
+    <string name="dpi">DPI </string>
+    <string name="opengl_disable_render">Disable OpenGL render in UI</string>
+    <string name="opengl_force_IP">Force host IP address</string>
+    <string name="keyboard">Keyboard </string>
+    <string name="statusbar">Force StatusBar</string>
+    <string name="su_bypass">Always allow su access (bypass Superuser app)</string>
+    <string name="save">Save</string>
+    <string name="infoip_text">IP Management : </string>
+
+    <string-array name="list_resolutions">
+	<item>540x960-16</item>
+	<item>1024x600-16</item>
+    </string-array>
+
+</resources>

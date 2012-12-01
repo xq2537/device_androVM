@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >    
+
+    <TextView
+        android:id="@+id/tv_infoip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/infoip_text" />
+	    
+    <TextView
+	android:id="@+id/tv_infoip"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+	    <CheckBox
+	        android:id="@+id/cb_opengl"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="onCBClick_opengl" />
+	    
+	    <TextView
+	        android:id="@+id/tv_opengl"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opengl" />
+	    
+	</LinearLayout>
+	    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+	    <CheckBox
+	        android:id="@+id/cb_res"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="onCBClick_res" />
+	    
+	    <TextView
+	        android:id="@+id/tv_res"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/resolution" />
+	    
+	    <Spinner
+	        android:id="@+id/sp_res"
+	        android:layout_width="wrap_content"	      
+	        android:layout_height="wrap_content"
+	        android:drawSelectorOnTop="true"
+        	android:prompt="@string/prompt_res" />
+	    
+	</LinearLayout>
+	    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    	<CheckBox
+        android:id="@+id/cb_dpi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCBClick_dpi" />
+    	    	
+	    <TextView
+	    android:id="@+id/tv_dpi"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/dpi" />
+	    
+	    <Spinner
+	    android:id="@+id/sp_dpi"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:drawSelectorOnTop="true"
+        android:prompt="@string/prompt_dpi" />
+    	
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+   
+        <CheckBox
+        android:id="@+id/cb_opengl_disable_render"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCBClick_opengl_disable_render" />
+
+        <TextView
+        android:id="@+id/tv_opengl_disable_render"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opengl_disable_render" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+   
+        <CheckBox
+        android:id="@+id/cb_opengl_force_IP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCBClick_opengl_force_IP" />
+
+        <TextView
+        android:id="@+id/tv_opengl_force_IP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opengl_force_IP" />
+
+        <EditText
+        android:id="@+id/et_opengl_force_IP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+        <CheckBox
+        android:id="@+id/cb_keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCBClick_keyboard" />
+        
+        <TextView
+        android:id="@+id/tv_keyboard"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/keyboard" />
+    	
+        <Spinner
+        android:id="@+id/sp_keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/prompt_keyboard" />
+        
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+        <CheckBox
+        android:id="@+id/cb_statusbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onCBClick_statusbar" />
+        
+        <TextView
+        android:id="@+id/tv_statusbar"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/statusbar" />
+    	
+    </LinearLayout>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+   
+        <CheckBox
+        android:id="@+id/cb_su_bypass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+        android:id="@+id/tv_su_bypass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/su_bypass" />
+
+    </LinearLayout>
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="onBTSave"
+    android:text="@string/save" />
+    
+</LinearLayout>
