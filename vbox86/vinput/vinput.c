@@ -34,12 +34,7 @@ int main(int argc, char *argv[]) {
 #define BUFSIZE 256
 	char mbuf[BUFSIZE];
 
-        if (strcmp(androVM_server_prop, "vmci")==0) {
-            csocket = socket_vmware_client(androVM_server_prop, 22469, SOCK_STREAM);
-        }
-        else {
-            csocket = socket_network_client(androVM_server_prop, 22469, SOCK_STREAM);
-        }
+        csocket = socket_network_client(androVM_server_prop, 22469, SOCK_STREAM);
         if (csocket < 0) {
 	    fprintf(stderr, "Unable to connect to Input server...\n");
 	    break;
