@@ -53,7 +53,7 @@ PRODUCT_COPY_FILES := \
     device/androVM/vbox86/cfbfillrect.ko:system/lib/cfbfillrect.ko \
     device/androVM/vbox86/cfbimgblt.ko:system/lib/cfbimgblt.ko \
     frameworks/base/data/keyboards/qwerty.kl:system/usr/keylayout/AT_Translated_Set_2_keyboard.kl \
-    frameworks/base/data/keyboards/qwerty.kl:system/usr/keylayout/androVM_Virtual_Input.kl \
+    device/androVM/vbox86/androVM_Virtual_Input.kl:system/usr/keylayout/androVM_Virtual_Input.kl \
     device/androVM/vbox86/wpa_supplicant.conf:data/misc/wifi/wpa_supplicant.conf \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     device/androVM/vbox86/audio_policy.conf:system/etc/audio_policy.conf \
@@ -92,7 +92,7 @@ PRODUCT_PACKAGES += \
     vmconfig \
     vinput \
     get_androVM_host \
-    bd-vbox-ctrl \
+    local_opengl \
     netperf \
     netserver \
     tcpdump \
@@ -103,8 +103,6 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     Superuser \
     busybox \
-    #libnativehelper_GBfake \
-    #tinyalsa \
 
 
 $(call inherit-product-if-exists,frameworks/base/build/tablet-dalvik-heap.mk)

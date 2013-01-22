@@ -6,6 +6,24 @@ vbox_graph_mode="800x600-16"
 vbox_dpi="160"
 vbox_sdcard_drive="/dev/block/sdc"
 
+# Disable cursor blinking - Thanks android-x86 :-)
+echo -e '\033[?17;0;0c' > /dev/tty0
+
+# Starting eth0 management
+# First check if eth0 is 'plugged'
+/system/bin/netcfg eth0 up
+CARRIER=`cat /sys/class/net/eth0/carrier`
+if [ $CARRIER -eq 1 ]; then
+  /system/bin/netcfg eth0 dhcp
+  IPETH0=(`ifconfig eth0`)
+  IPMGMT=${IPETH0[2]}
+  /system/bin/androVM-prop set androvm_ip_management $IPMGMT
+  echo "IP Management : $IPMGMT" > /dev/tty0
+else
+  /system/bin/androVM-prop set androvm_ip_management 0.0.0.0
+  echo "eth0 interface is not connected" > /dev/tty0
+fi
+
 # Load parameters from virtualbox guest properties
 chown system /dev/vboxguest
 prop_vbox_graph_mode=`/system/bin/androVM-prop get vbox_graph_mode`
@@ -48,22 +66,18 @@ insmod /system/lib/cfbfillrect.ko
 insmod /system/lib/cfbimgblt.ko
 insmod /system/lib/uvesafb.ko mode_option=$vbox_graph_mode scroll=redraw
 
-# Disable cursor blinking - Thanks android-x86 :-)
-echo -e '\033[?17;0;0c' > /dev/tty0
-
 prop_hardware_opengl=`/system/bin/androVM-prop get hardware_opengl`
 if [ $prop_hardware_opengl ]; then
-  setprop androVM.gles 1
-  setprop androVM.gles.tries 0
-  prop_hardware_opengl_disable_render=`/system/bin/androVM-prop get hardware_opengl_disable_render`
-  if [ ! $prop_hardware_opengl_disable_render ]; then
-    setprop androVM.gles.renderer 1
-  fi
-  prop_hardware_opengl_force_IP=`/system/bin/androVM-prop get hardware_opengl_force_IP`
-  if [ $prop_hardware_opengl_force_IP ]; then
-    setprop androVM.server.ip $prop
+  if [ $IPMGMT ]; then
+    setprop androVM.gles 1
+    prop_hardware_opengl_disable_render=`/system/bin/androVM-prop get hardware_opengl_disable_render`
+    if [ ! $prop_hardware_opengl_disable_render ]; then
+      setprop androVM.gles.renderer 1
+    fi
   else
-    /system/bin/get_androVM_host eth0
+    echo "eth0 is not configured correctly - HARDWARE OPENGL IS DISABLED !!!"  > /dev/tty0
+    setprop ro.sf.lcd_density $vbox_dpi
+    sleep 10
   fi
 else
   setprop ro.sf.lcd_density $vbox_dpi
@@ -98,10 +112,5 @@ if [ ! $abi3_set ]; then
     setprop ro.product.cpu.abi3 armeabi
   fi
 fi
-
-IPETH0=(`ifconfig eth0`)
-IPMGMT=${IPETH0[2]}
-/system/bin/androVM-prop set androvm_ip_management $IPMGMT
-echo "IP Management : $IPMGMT" > /dev/tty0
 
 setprop androVM.inited 1

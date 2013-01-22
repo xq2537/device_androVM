@@ -465,12 +465,8 @@ service vbox86-setup /system/etc/init.androVM.sh
     oneshot
     class very-first
 
-service netcfg_eth0 /system/bin/netcfg eth0 dhcp
-    oneshot
-    class very-first
-
 service vinput /system/bin/vinput
     class core
 
-service bd-vbox-ctrl /system/bin/bd-vbox-ctrl
+service local_opengl /system/bin/local_opengl
     class core

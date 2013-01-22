@@ -19,26 +19,25 @@ int main(int argc, char *argv[]) {
     int csocket;
     int i;
 
-
-    // Connect
-    char androVM_server_prop[PROPERTY_VALUE_MAX];
-    for (;;) {
-        property_get("androVM.server.ip", androVM_server_prop, "");
-        if (strlen(androVM_server_prop)>0)
-            break;
-        sleep(1);
-    }
-
     while (1) {
 	FILE *f_sock;
 #define BUFSIZE 256
 	char mbuf[BUFSIZE];
 
-        csocket = socket_network_client(androVM_server_prop, 22469, SOCK_STREAM);
-        if (csocket < 0) {
-	    fprintf(stderr, "Unable to connect to Input server...\n");
+        int ssocket;
+        ssocket = socket_inaddr_any_server(22469, SOCK_STREAM);
+        if (ssocket < 0) {
+	    fprintf(stderr, "Unable to start listening server...\n");
 	    break;
 	}
+        csocket = accept(ssocket, NULL, NULL);
+        if (csocket < 0) {
+	    fprintf(stderr, "Unable to accept connection...\n");
+            close(ssocket);
+	    break;
+	}
+        close(ssocket);
+
 
 	f_sock = fdopen(csocket, "r");
 	if (!f_sock) {
