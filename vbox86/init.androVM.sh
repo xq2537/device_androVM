@@ -9,19 +9,30 @@ vbox_sdcard_drive="/dev/block/sdc"
 # Disable cursor blinking - Thanks android-x86 :-)
 echo -e '\033[?17;0;0c' > /dev/tty0
 
+prop_hardware_opengl=`/system/bin/androVM-prop get hardware_opengl`
 # Starting eth0 management
 # First check if eth0 is 'plugged'
-/system/bin/netcfg eth0 up
-CARRIER=`cat /sys/class/net/eth0/carrier`
-if [ $CARRIER -eq 1 ]; then
-  /system/bin/netcfg eth0 dhcp
-  IPETH0=(`ifconfig eth0`)
-  IPMGMT=${IPETH0[2]}
-  /system/bin/androVM-prop set androvm_ip_management $IPMGMT
-  echo "IP Management : $IPMGMT" > /dev/tty0
+if [ $prop_hardware_opengl ]; then
+  /system/bin/netcfg eth0 up
+  CARRIER=`cat /sys/class/net/eth0/carrier`
+  if [ $CARRIER -eq 1 ]; then
+    /system/bin/netcfg eth0 dhcp
+    IPETH0=(`ifconfig eth0`)
+    IPMGMT=${IPETH0[2]}
+    /system/bin/androVM-prop set androvm_ip_management $IPMGMT
+    echo "IP Management : $IPMGMT" > /dev/tty0
+  else
+    /system/bin/androVM-prop set androvm_ip_management 0.0.0.0
+    echo "eth0 interface is not connected" > /dev/tty0
+  fi
 else
-  /system/bin/androVM-prop set androvm_ip_management 0.0.0.0
-  echo "eth0 interface is not connected" > /dev/tty0
+  (
+    /system/bin/netcfg eth0 dhcp
+    IPETH0=(`ifconfig eth0`)
+    IPMGMT=${IPETH0[2]}
+    /system/bin/androVM-prop set androvm_ip_management $IPMGMT
+    echo "IP Management : $IPMGMT" > /dev/tty0 
+  )&
 fi
 
 # Load parameters from virtualbox guest properties
@@ -66,7 +77,6 @@ insmod /system/lib/cfbfillrect.ko
 insmod /system/lib/cfbimgblt.ko
 insmod /system/lib/uvesafb.ko mode_option=$vbox_graph_mode scroll=redraw
 
-prop_hardware_opengl=`/system/bin/androVM-prop get hardware_opengl`
 if [ $prop_hardware_opengl ]; then
   if [ $IPMGMT ]; then
     setprop androVM.gles 1
